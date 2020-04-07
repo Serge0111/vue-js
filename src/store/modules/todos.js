@@ -14,9 +14,9 @@ const actions = {
     const response = await axios.get(environment.api);
     commit('setTodos',response.data)
   },
-  async removeTodos({ commit }, ids) {
-    await axios.delete(environment.api, { params: { id: ids } });
-    commit('deleteTodos', ids)
+  async removeTodos({ commit }, id) {
+    await axios.delete(environment.api, { params: { id: id } });
+    commit('deleteTodos', id)
   },
   async addTodos({ commit }, name) {
     const added = await axios.post(environment.api, { name });
@@ -30,7 +30,7 @@ const mutations = {
     state.todos = [ ...state.todos, todos ];
     return state.todos;
   },
-  deleteTodos: (state, ids) => ( state.todos = state.todos.filter(todo => !ids.includes(todo.id)) ) ,
+  deleteTodos: (state, id) => ( state.todos = state.todos.filter(todo => id !== todo.id ) ) ,
 };
 
 export default {
