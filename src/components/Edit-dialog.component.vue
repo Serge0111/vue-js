@@ -9,7 +9,9 @@
       </md-dialog-actions>
     </md-dialog>
 
-    <md-button class="md-primary md-raised" @click="showDialog = true">Show Dialog</md-button>
+    <md-button class="md-primary" @click="showDialog = true">
+      <md-icon>edit</md-icon>
+    </md-button>
   </div>
 </template>
 
@@ -22,7 +24,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .md-dialog {
     max-width: 768px;
   }

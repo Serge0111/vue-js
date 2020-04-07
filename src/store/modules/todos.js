@@ -15,7 +15,7 @@ const actions = {
     commit('setTodos',response.data)
   },
   async removeTodos({ commit }, id) {
-    await axios.delete(environment.api, { params: { id: id } });
+    await axios.delete(`${environment.api}/${id}`);
     commit('deleteTodos', id)
   },
   async addTodos({ commit }, name) {

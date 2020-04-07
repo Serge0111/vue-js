@@ -3,6 +3,9 @@
     <md-table class="md-primary" v-model="allTodos" md-sort="name" md-sort-order="asc" md-card @md-selected="onSelect">
       <md-table-toolbar>
         <h1 class="md-title">Brands</h1>
+        <div class="md-toolbar-section-start">
+          <DialogEdit/>
+        </div>
         <div class="md-toolbar-section-end">
           <md-button class="md-icon-button" v-on:click="removeById">
             <md-icon>delete</md-icon>
@@ -25,9 +28,13 @@ import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default-dark.css'
 import { mapGetters, mapActions } from 'vuex';
+import DialogEdit from './Edit-dialog.component.vue'
 
 Vue.use(VueMaterial)
   export default {
+    components: {
+      DialogEdit
+    },
     name: 'TableSort',
     data: () => ({
       selected: null,
