@@ -3,10 +3,8 @@
     <md-table class="md-primary" v-model="allTodos" md-sort="name" md-sort-order="asc" md-card @md-selected="onSelect">
       <md-table-toolbar>
         <h1 class="md-title">Brands</h1>
-        <div class="md-toolbar-section-start">
-          <DialogEdit/>
-        </div>
         <div class="md-toolbar-section-end">
+          <DialogEdit/>
           <md-button class="md-icon-button" v-on:click="removeById">
             <md-icon>delete</md-icon>
           </md-button>
