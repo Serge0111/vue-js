@@ -1,28 +1,44 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="table-component">
+      <TableSort/>
+    </div>
+    <div class="create-brand">
+      <FormValidation/>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TableSort from './components/Table.component.vue'
+import FormValidation from './components/Form.component.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    TableSort,
+    FormValidation
+  },
+ 
 }
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.create-brand {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.table-component {
+  width: 90%;
 }
 </style>

@@ -1,0 +1,65 @@
+<template>
+  <div class="table-data">
+    <md-table class="md-primary" v-model="allTodos" md-sort="name" md-sort-order="asc" md-card @md-selected="onSelect">
+      <md-table-toolbar>
+        <h1 class="md-title">Brands</h1>
+      </md-table-toolbar>
+      <md-table-toolbar slot="md-table-alternate-header" slot-scope="{ count }">
+        <div class="md-toolbar-section-start">{{ getAlternateLabel(count) }}</div>
+
+        <div class="md-toolbar-section-end">
+          <md-button class="md-icon-button" v-on:click="removeById">
+            <md-icon>delete</md-icon>
+          </md-button>
+        </div>
+      </md-table-toolbar>
+
+      <md-table-row slot="md-table-row" slot-scope="{ item }" md-selectable="multiple" md-auto-select>
+        <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+        <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
+        <md-table-cell md-label="Quantity" md-sort-by="quantity">{{ item.quantity }}</md-table-cell>
+      </md-table-row>
+    </md-table>
+  </div>
+</template>
+
+<script>
+import Vue from 'vue'
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/default-dark.css'
+import { mapGetters, mapActions } from 'vuex';
+
+Vue.use(VueMaterial)
+  export default {
+    name: 'TableSort',
+    data: () => ({
+      selected: [],
+      ids: [],
+    }),
+    methods: {
+      ...mapActions(['fetchTodos']),
+      ...mapActions(['removeTodos']),
+      onSelect (items) {
+        this.selected = items
+        this.ids = this.selected.map(data => data.id);
+      },
+      removeById() {
+        this.removeTodos(this.ids)
+      },
+      getAlternateLabel (count) {
+        let plural = ''
+
+        if (count > 1) {
+          plural = 's'
+        }
+
+        return `${count} user${plural} selected`
+      }
+    },
+    computed: mapGetters(['allTodos']),
+    created() {
+      this.fetchTodos();
+    },
+  }
+</script>
