@@ -59,7 +59,7 @@
       }
     },
     methods: {
-      ...mapActions(['addTodos']),
+      ...mapActions(['addBrand']),
       getValidationClass (fieldName) {
         const field = this.$v.form[fieldName]
 
@@ -75,7 +75,7 @@
       },
       saveNewBrand () {
         this.sending = true
-        this.addTodos(this.form.brandName)
+        this.addBrand(this.form.brandName)
         this.brandSaved = true
         this.sending = false
         this.clearForm()
@@ -94,7 +94,7 @@
 
 .form-data{
   margin-top: 10px;
-  width: 50%;
+  width: 100%;
 }
 
 </style>

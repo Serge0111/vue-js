@@ -2,30 +2,30 @@ import { environment } from '../../environments/environment';
 import axios from 'axios';
 
 const state = {
-  todos: [],
+  brands: [],
   selectedItem: null
 };
 
 const getters = {
-  allTodos: (state) => state.todos,
+  allBrands: (state) => state.brands,
   editSelectedItem: (state) => state.selectedItem
 };
 
 const actions = {
-  async fetchTodos({ commit }) {
+  async fetchBrands({ commit }) {
     const response = await axios.get(environment.api);
-    commit('setTodos',response.data)
+    commit('setBrands',response.data)
   },
-  async removeTodos({ commit }, id) {
+  async removeBrand({ commit }, id) {
     await axios.delete(`${environment.api}/${id}`);
-    commit('deleteTodos', id)
+    commit('deleteBrand', id)
   },
-  async addTodos({ commit }, name) {
+  async addBrand({ commit }, name) {
     const added = await axios.post(environment.api, { name });
-    commit('addedTodos', added.data);
+    commit('addedBrand', added.data);
   },
   async updateBrand({ commit }, brand) {
-    const updated = await axios.put(environment.api, { name: brand.name });
+    const updated = await axios.put(`${environment.api}/${brand.id}`, { id: brand.id, name: brand.name });
     if(updated) commit('updatedBrand', brand);
   },
   selectItem({commit}, selectedItem) {
@@ -35,16 +35,16 @@ const actions = {
 };
 
 const mutations = {
-  setTodos: (state, todos) => (state.todos = todos),
-  addedTodos: (state, todos) => { 
-    state.todos = [ ...state.todos, todos ];
-    return state.todos;
+  setBrands: (state, brands) => (state.brands = brands),
+  addedBrand: (state, brand) => { 
+    state.brands = [ ...state.brands, brand ];
+    return state.brands;
   },
   updatedBrand: (state, updated) => {
-    state.todos = state.todos.map(brand => brand.id !== updated.id ? brand : updated );
-    return state.todos;
+    state.brands = state.brands.map(brand => brand.id !== updated.id ? brand : updated );
+    return state.brands;
   },
-  deleteTodos: (state, id) => ( state.todos = state.todos.filter(todo => id !== todo.id ) ) ,
+  deleteBrand: (state, id) => ( state.brands = state.brands.filter(todo => id !== todo.id ) ) ,
   selectedBrand: (state, selectedItem) => ( state.selectedItem = selectedItem ) ,
 };
 

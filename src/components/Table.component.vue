@@ -1,6 +1,6 @@
 <template>
   <div class="table-data">
-    <md-table class="md-primary" v-model="allTodos" md-sort="name" md-sort-order="asc" md-card @md-selected="onSelect">
+    <md-table class="md-primary" v-model="allBrands" md-sort="name" md-sort-order="asc" md-card @md-selected="onSelect">
       <md-table-toolbar>
         <h1 class="md-title">Brands</h1>
         <div class="md-toolbar-section-end">
@@ -40,8 +40,8 @@ Vue.use(VueMaterial)
       id: undefined,
     }),
     methods: {
-      ...mapActions(['fetchTodos']),
-      ...mapActions(['removeTodos']),
+      ...mapActions(['fetchBrands']),
+      ...mapActions(['removeBrand']),
       ...mapActions(['selectItem']),
       onSelect (items) {
         this.selected = items;
@@ -50,7 +50,7 @@ Vue.use(VueMaterial)
         this.id = this.selected ? this.selected.id : this.id;
       },
       removeById() {
-        this.removeTodos(this.id)
+        this.removeBrand(this.id)
       },
       getAlternateLabel (count) {
         let plural = ''
@@ -65,9 +65,9 @@ Vue.use(VueMaterial)
         this.brand = this.selected;
       }
     },
-    computed: mapGetters(['allTodos']),
+    computed: mapGetters(['allBrands']),
     created() {
-      this.fetchTodos();
+      this.fetchBrands();
     },
   }
 </script>
