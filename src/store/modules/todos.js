@@ -2,11 +2,13 @@ import { environment } from '../../environments/environment';
 import axios from 'axios';
 
 const state = {
-  todos: []
+  todos: [],
+  selectedItem: null
 };
 
 const getters = {
-  allTodos: (state) => state.todos
+  allTodos: (state) => state.todos,
+  editSelectedItem: (state) => state.selectedItem
 };
 
 const actions = {
@@ -21,6 +23,14 @@ const actions = {
   async addTodos({ commit }, name) {
     const added = await axios.post(environment.api, { name });
     commit('addedTodos', added.data);
+  },
+  async updateBrand({ commit }, brand) {
+    const updated = await axios.put(environment.api, { name: brand.name });
+    if(updated) commit('updatedBrand', brand);
+  },
+  selectItem({commit}, selectedItem) {
+    console.log('HERE SELECTRD ITED', selectedItem);
+    commit('selectedBrand', selectedItem)
   }
 };
 
@@ -30,7 +40,12 @@ const mutations = {
     state.todos = [ ...state.todos, todos ];
     return state.todos;
   },
+  updatedBrand: (state, updated) => {
+    state.todos = state.todos.map(brand => brand.id !== updated.id ? brand : updated );
+    return state.todos;
+  },
   deleteTodos: (state, id) => ( state.todos = state.todos.filter(todo => id !== todo.id ) ) ,
+  selectedBrand: (state, selectedItem) => ( state.selectedItem = selectedItem ) ,
 };
 
 export default {

@@ -19,7 +19,6 @@ export default {
     TableSort,
     FormValidation,
   },
- 
 }
 </script>
 

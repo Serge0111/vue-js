@@ -1,6 +1,6 @@
 <template>
   <div class="form-data"> 
-    <form novalidate class="md-layout" @submit.prevent="validateUser">
+    <form novalidate class="md-layout" @submit.prevent="validateNewBrand">
       <md-card class="md-layout-item">
         <md-card-header>
           <div class="md-title">Brand</div>
@@ -73,18 +73,18 @@
         this.$v.$reset()
         this.form.brandName = null
       },
-      saveUser () {
+      saveNewBrand () {
         this.sending = true
         this.addTodos(this.form.brandName)
         this.brandSaved = true
         this.sending = false
         this.clearForm()
       },
-      validateUser () {
+      validateNewBrand () {
         this.$v.$touch()
 
         if (!this.$v.$invalid) {
-          this.saveUser()
+          this.saveNewBrand()
         }
       }
     }

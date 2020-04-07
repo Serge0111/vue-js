@@ -36,20 +36,23 @@ Vue.use(VueMaterial)
     name: 'TableSort',
     data: () => ({
       selected: null,
+      brand: null,
       id: undefined,
     }),
     methods: {
       ...mapActions(['fetchTodos']),
       ...mapActions(['removeTodos']),
+      ...mapActions(['selectItem']),
       onSelect (items) {
-        this.selected = items
+        this.selected = items;
+        console.log('SELECTED', this.selected);
+        this.selectItem(this.selected);
         this.id = this.selected ? this.selected.id : this.id;
       },
       removeById() {
         this.removeTodos(this.id)
       },
       getAlternateLabel (count) {
-        console.log('BOSDF');
         let plural = ''
 
         if (count > 1) {
@@ -57,6 +60,9 @@ Vue.use(VueMaterial)
         }
 
         return `${count} user${plural} selected`
+      },
+      passCurrentBrand() {
+        this.brand = this.selected;
       }
     },
     computed: mapGetters(['allTodos']),
