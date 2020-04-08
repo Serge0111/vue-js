@@ -1,5 +1,6 @@
 <template>
   <div class="table-data">
+    <DialogAlert/>
     <md-table class="md-primary" v-model="allBrands" md-sort="name" md-sort-order="asc" md-card @md-selected="onSelect">
       <md-table-toolbar>
         <h1 class="md-title">Brands</h1>
@@ -27,11 +28,13 @@ import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default-dark.css'
 import { mapGetters, mapActions } from 'vuex';
 import DialogEdit from './Edit-dialog.component.vue'
+import DialogAlert from './shared/Alert.component.vue'
 
 Vue.use(VueMaterial)
   export default {
     components: {
-      DialogEdit
+      DialogEdit,
+      DialogAlert
     },
     name: 'TableSort',
     data: () => ({
@@ -43,6 +46,7 @@ Vue.use(VueMaterial)
       ...mapActions(['fetchBrands']),
       ...mapActions(['removeBrand']),
       ...mapActions(['selectItem']),
+      ...mapActions(['showAlertModal']),
       onSelect (items) {
         this.selected = items;
         console.log('SELECTED', this.selected);
@@ -50,6 +54,10 @@ Vue.use(VueMaterial)
         this.id = this.selected ? this.selected.id : this.id;
       },
       removeById() {
+        if(!this.selected) { 
+          this.showAlertModal(true);
+          return;
+        }
         this.removeBrand(this.id)
       },
       getAlternateLabel (count) {

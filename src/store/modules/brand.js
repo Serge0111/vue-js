@@ -3,12 +3,14 @@ import axios from 'axios';
 
 const state = {
   brands: [],
-  selectedItem: null
+  selectedItem: null,
+  showAlert: false
 };
 
 const getters = {
   allBrands: (state) => state.brands,
-  editSelectedItem: (state) => state.selectedItem
+  editSelectedItem: (state) => state.selectedItem,
+  showAlertIfNotSelected: (state) => state.showAlert,
 };
 
 const actions = {
@@ -29,8 +31,10 @@ const actions = {
     if(updated) commit('updatedBrand', brand);
   },
   selectItem({commit}, selectedItem) {
-    console.log('HERE SELECTRD ITED', selectedItem);
     commit('selectedBrand', selectedItem)
+  },
+  showAlertModal({commit}, shown) {
+    commit('showModal', shown)
   }
 };
 
@@ -46,6 +50,7 @@ const mutations = {
   },
   deleteBrand: (state, id) => ( state.brands = state.brands.filter(todo => id !== todo.id ) ) ,
   selectedBrand: (state, selectedItem) => ( state.selectedItem = selectedItem ) ,
+  showModal: (state, shown) => ( state.showAlert = shown ) ,
 };
 
 export default {

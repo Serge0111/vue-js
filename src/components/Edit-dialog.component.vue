@@ -55,8 +55,12 @@ import {
     },
     methods: {
       ...mapActions(['updateBrand']),
+      ...mapActions(['showAlertModal']),
       showPopup() {
-        console.log('WATCH IT', this.brand);
+        if(!this.editSelectedItem) { 
+          this.showAlertModal(true);
+          return;
+        }
         this.isShownDialog = true;
         this.brandItem = this.editSelectedItem;
         this.form.brandName = this.brandItem.name;
@@ -72,7 +76,6 @@ import {
       },
       saveEditedBrand () {
         this.brandItem.name = this.form.brandName;
-        console.log('BORINIA', this.brandItem)
         this.updateBrand(this.brandItem);
         this.isShownDialog = false;
       },
